@@ -22,9 +22,9 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
-        String token = authService.authenticateUser(username, password);
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody User user) {
+        String token = authService.authenticateUser(user.getUsername(), user.getPassword());
         if (token != null) {
             return ResponseEntity.ok(token);
         } else {
@@ -36,10 +36,10 @@ public class AuthController {
     public ResponseEntity<String> extractRole(@PathVariable String token) {
         String role = authService.extractRole(token);
         if (role != null) {
-            System.out.println("Role extraída: " + role); // Log para verificar a role
+            System.out.println("Role extraída: " + role);
             return ResponseEntity.ok(role);
         } else {
-            System.err.println("Role não encontrada para o token: " + token); // Log de erro
+            System.err.println("Role não encontrada para o token: " + token);
             return ResponseEntity.status(400).body("Role not found");
         }
     }

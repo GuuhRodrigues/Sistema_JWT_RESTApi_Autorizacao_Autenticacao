@@ -26,11 +26,8 @@ public class AppConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/role/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/login.html").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/register.html").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/home.html").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
