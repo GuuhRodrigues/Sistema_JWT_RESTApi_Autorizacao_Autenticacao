@@ -28,6 +28,8 @@ public class AppConfig {
                         .requestMatchers(HttpMethod.POST, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login").permitAll()
                         .requestMatchers(HttpMethod.GET, "/role/**").permitAll()
+                        .requestMatchers(HttpMethod.DELETE, "/user/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/clima").hasRole("USER")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
